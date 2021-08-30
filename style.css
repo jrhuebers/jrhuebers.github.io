@@ -17,6 +17,8 @@ body > header {
 #TopMenu {
     display: block;
     text-align: center;
+    margin: 0;
+    padding: 0;
 }
 
 #TopMenu > ul {
@@ -35,7 +37,7 @@ body > header {
     background-color: #333333;
     color: greenyellow;
 
-    padding: 0rem;
+    padding: .5rem;
 }
 
 #TopMenu > ul > li > a:hover {
