@@ -1,6 +1,46 @@
 body {
     color: greenyellow;
-    background: #000000;
+    background: #111111;
     font-family: sans-serif;
+}
+
+main {
     margin: auto;
+    max-width: 50em;
+    padding: .5rem;
+    border: solid red;
+}
+
+body > header {
+    text-align: center;
+    border: solid yellow 1px;
+}
+
+#TopMenu {
+    margin: 1rem;
+    border: solid green 1px;
+}
+
+#TopMenu > ul {
+    list-style: none;
+    border: solid brown 1px;
+}
+
+#TopMenu > ul > li {
+    display: inline-block;
+    margin: 0rem .5rem;
+}
+
+#TopMenu > ul > li > a {
+    padding: .5rem;
+    background-color: #333333;
+    color: greenyellow;
+}
+
+#TopMenu > ul > li > a:hover {
+    background-color: #888888;
+}
+
+#TopMenu > ul > li > a:active {
+    background-color: red;
 }
