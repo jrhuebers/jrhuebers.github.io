@@ -35,7 +35,7 @@ body > header {
     background-color: #333333;
     color: greenyellow;
 
-    padding: .5rem;
+    padding: 0rem;
 }
 
 #TopMenu > ul > li > a:hover {
