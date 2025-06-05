@@ -1,0 +1,23 @@
+\theoremstyle{plain}
+
+\newtheorem{theorem}{\textsc{Theorem}}[section]
+\newtheorem{lemma}[theorem]{\textsc{Lemma}}
+\newtheorem{proposition}[theorem]{\textsc{Proposition}}
+\newtheorem{corollary}[theorem]{\textsc{Corollary}}
+\newtheorem{conjecture}[theorem]{\textsc{Conjecture}}
+\newtheorem{definition}[theorem]{\textsc{Definition}}
+
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{\textsc{Remark}}
+\newtheorem{example}[theorem]{\textsc{Example}}
+
+% https://tex.stackexchange.com/questions/248757/ntheorem-numbering-of-claim-and-its-proof
+
+\newtheorem{claim}{Claim}[theorem]
+\newtheorem*{unnumberedclaim}{Claim}
+
+%\newtheorem{step}{Step}[theorem]
+
+\newcommand{\step}[1]{\textbf{#1}\hspace{.5em}}
+
+\theoremstyle{definition}
