@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Görg Links </title>
+    <link rel="icon" href="/favicon.ico" />
+    
+    <style>
+        @media (prefers-color-scheme: dark) {
+            body {
+                color: #eee;
+                background: #121212;
+            }
+            a {
+                color: #809fff;
+            }
+        }
+        @media (prefers-color-scheme: light) {
+            /* Light theme styles go here */
+        }
+    </style>
+</head>
+
+<h1> Görg Links </h1>
+
+<h3> Edit this page </h3>
+<ul>
+    <li> <a href="https://github.com/jrhuebers/jrhuebers.github.io/"> Github repository </a> </li>
+    <li> <a href="https://htmlcheatsheet.com/"> HTML cheat sheet </a> </li>
+</ul>
+
+<h3> Links </h3>
+<ul>
+    <li> <a href="https://gitlab.cc-asp.fraunhofer.de/IAIS/me/cbo/ali/DataDetective/datadetective-backend/-/tree/dev/"> DataDetective Backend </a> </li>
+    <li> <a href="https://goerg.sharepoint.com/sites/LEXI-Projekt/"> Görg Sharepoint </a> </li>
+    <li> <a href="https://goerg.sharepoint.com/:x:/r/sites/LEXI-Projekt/_layouts/15/doc2.aspx?sourcedoc=%7B9C961110-5CC7-4ED9-BA45-0F8F3CB02292%7D&file=%C3%9Cbersicht_Dokumententypen_Classifier.xlsx&action=default&mobileredirect=true/"> Excel </a> </li>
+    <li> <a href="https://dev.azure.com/Goerg-IT/LEXI"> LEXI Azure DevOps </a> </li>
+</ul>
+
+<h3> FhGenie </h3>
+<ul>
+    <li> <a href="https://fraunhofer.sharepoint.com/sites/it-sicherheit/SitePages/en/FhGenie-API.aspx"> FhGenie-API </a> </li>
+</ul>
+
+</html>
