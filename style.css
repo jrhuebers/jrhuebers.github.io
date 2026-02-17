@@ -16,7 +16,7 @@ a {
 /* Dark mode */
 @media (prefers-color-scheme: dark) {
     body {
-        background: black;
+        background: #111111;
         color: white;
         
     }
