@@ -7,7 +7,8 @@ body {
     font-family: sans-serif;
 
     /* Light mode */
-    background: #fefefd;
+    /*background: #fefefd;*/
+    background: white;
     color: black;
 }
 a {
