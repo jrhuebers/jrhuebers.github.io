@@ -18,7 +18,7 @@
       </p>
 
       <p>
-        <a href="/lyapunov-estimator-study.pdf"><strong>Download the illustrated PDF report (1.1 MB)</strong></a>
+        <a href="/lyapunov-estimator-study.pdf"><strong>Download the illustrated PDF report (1.4 MB)</strong></a>
         · <a href="https://github.com/jrhuebers/lyapunov-diagnostics">code, configurations, and evidence</a>
       </p>
 
@@ -59,12 +59,51 @@
         <figcaption>Task performance is reported separately: a global top rate is not a direct measure of task accuracy or oversquashing.</figcaption>
       </figure>
 
+      <h2>Datasets and input dependence</h2>
+      <p>
+        Training uses 16 balanced, 12-node homophilic contextual SBMs and validation uses six fresh graphs from the same
+        distribution. Each node has a four-dimensional signal: a noisy class-dependent first coordinate and three noise
+        coordinates. Hyperparameters are selected only from validation accuracy. Testing uses 12 fresh graphs from each of
+        three conditions: matched homophilic SBMs, heterophilic SBMs with reversed edge probabilities, and 15-node barbells
+        with a three-node bottleneck. Jacobian calibration uses the first three examples per condition for each of two model
+        seeds.
+      </p>
+      <p>
+        The rate is computed pointwise: within a cell, the graph, feature signal, trained model, and forward trajectory are
+        fixed; random probes vary tangent directions, not data inputs. Across cells, the report summarizes an empirical
+        distribution over jointly generated graph/signal pairs. It therefore does not yet isolate variation in the input
+        signal while holding a single graph fixed.
+      </p>
+
+      <h2>Pierre's projected estimator</h2>
+      <p>
+        A separate experiment evaluates Pierre's deliberately different observable, which subtracts the node mean after
+        every layer Jacobian action. Exact projected rates were lower than full-Jacobian rates on matched instances: mean
+        GCN 0.344 versus 0.674, sheaf 0.427 versus 0.523, and ChebNet 0.844 versus 1.112. All 54 projected power-iteration
+        cells passed the residual check and matched their projected dense-SVD references. Random projected probes still
+        converged slowly and none reached the 0.01-per-layer target at 1,024 probes.
+      </p>
+
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/projected_vs_unprojected.png"
+             alt="Pierre projected exact rates versus unprojected exact rates"
+             style="max-width: 100%; height: auto;">
+        <figcaption>Pierre's mean-zero projected observable is lower than the full-Jacobian rate, but remains positive on average.</figcaption>
+      </figure>
+
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/pierre_probe_gap_summary.png"
+             alt="Probe convergence for Pierre's projected estimator"
+             style="max-width: 100%; height: auto;">
+        <figcaption>Mean-zero projection does not resolve the slow convergence of independent random probes.</figcaption>
+      </figure>
+
       <h2>Recommended practice</h2>
       <ul>
         <li>For small calibration cases, validate JVP/VJP products against a dense reverse-mode Jacobian and SVD.</li>
         <li>For the scalable finite-depth top rate, use multiple-start power iteration on the <em>full unprojected</em> Jacobian product; report residuals and do not accept nonconverged runs.</li>
         <li>Use random probes as labeled lower bounds or spectral-shape diagnostics, after calibration; do not silently treat a fixed probe count as the exponent.</li>
-        <li>Do not insert a mean-zero projection between GNN layers: that changes the operator being measured.</li>
+        <li>Do not insert a mean-zero projection when claiming to measure the full Jacobian: it changes the operator. If scientifically useful, report Pierre's projected cocycle as a separately named observable.</li>
       </ul>
     </main>
   </body>
