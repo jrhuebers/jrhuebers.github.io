@@ -18,7 +18,7 @@
       </p>
 
       <p>
-        <a href="/lyapunov-estimator-study.pdf"><strong>Download the illustrated PDF report (2.1 MB)</strong></a>
+        <a href="/lyapunov-estimator-study.pdf"><strong>Download the illustrated PDF report (2.3 MB)</strong></a>
         · <a href="https://github.com/jrhuebers/lyapunov-diagnostics">code, configurations, and evidence</a>
       </p>
 
@@ -97,6 +97,22 @@
              alt="Wall-clock comparison of dense SVD, random probes, and power iteration"
              style="max-width: 100%; height: auto;">
         <figcaption>One-thread CPU timing on six matched cells per architecture; medians with interquartile error bars.</figcaption>
+      </figure>
+
+      <h2>Lyapunov-rate histograms</h2>
+      <p>
+        Loading a trained checkpoint of each architecture and drawing the same 300 graph/signal pairs per family, the exact
+        reverse-mode dense-SVD rate gives 900 pointwise values per model. The models are cleanly ordered: ChebNet dominates
+        every family (mean about 0.98–1.09), GCN is intermediate (about 0.79–0.83), and the deep sheaf is lowest (about
+        0.51–0.53). Distributions are narrow relative to their means, so the finite-depth rate meaningfully distinguishes
+        these trained architectures, and family has a smaller effect than model choice.
+      </p>
+
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/model_histogram_overlay.png"
+             alt="Exact Lyapunov-rate histograms for GCN, ChebNet, and sheaf across graph families"
+             style="max-width: 100%; height: auto;">
+        <figcaption>Exact finite-depth rate distributions over random graph/signal pairs, by family and combined.</figcaption>
       </figure>
 
       <h2>Pierre's projected estimator</h2>
