@@ -1,0 +1,71 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+  {% include head.html %}
+  <body>
+    <main>
+      {% include nav.html %}
+      <hr>
+      <h1>Finite-depth Lyapunov-growth estimation in GNNs</h1>
+      <p><strong>Research note · 24 September 2026</strong></p>
+
+      <p>
+        This study asks how to estimate the top finite-depth Jacobian growth rate of a trained graph neural network.
+        It compares exact dense SVD on small cases, random full-space JVP probes, and residual-checked JVP/VJP power iteration.
+        The experiments use tuned GCN, ChebNet, and a deep feature-conditioned sheaf-diffusion baseline on homophilic,
+        heterophilic, and barbell graph conditions.
+      </p>
+
+      <p>
+        <a href="/lyapunov-estimator-study.pdf"><strong>Download the illustrated PDF report (1.1 MB)</strong></a>
+        · <a href="https://github.com/jrhuebers/lyapunov-diagnostics">code, configurations, and evidence</a>
+      </p>
+
+      <h2>Key result</h2>
+      <p>
+        A maximum over independent random tangent probes is mathematically valid as a lower bound, but it was far too loose
+        as a point estimator in these experiments: even 1,024 probes never reached the predeclared 0.01-per-layer accuracy
+        target. In contrast, three-start, residual-checked power iteration on the complete Jacobian product matched exact
+        tiny-case SVD references. The report explains why probe budgets depend on the singular spectrum and tangent dimension,
+        rather than being a universal GNN hyperparameter.
+      </p>
+
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/probe_gap_summary.png"
+             alt="Random-probe gap versus number of probes for GCN and sheaf GNN"
+             style="max-width: 100%; height: auto;">
+        <figcaption>Random-probe lower-bound convergence: the gap remains substantial at 1,024 probes.</figcaption>
+      </figure>
+
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/chebnet_probe_gap_summary.png"
+             alt="Random-probe gap versus number of probes for ChebNet"
+             style="max-width: 100%; height: auto;">
+        <figcaption>ChebNet independently reproduces the slow random-probe convergence.</figcaption>
+      </figure>
+
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/power_comparison.png"
+             alt="Power iteration estimates versus exact dense SVD rates"
+             style="max-width: 100%; height: auto;">
+        <figcaption>On calibrated small cases, residual-checked power iteration agrees with dense SVD.</figcaption>
+      </figure>
+
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/test_accuracy.png"
+             alt="Held-out task accuracy by graph family for GCN and sheaf GNN"
+             style="max-width: 100%; height: auto;">
+        <figcaption>Task performance is reported separately: a global top rate is not a direct measure of task accuracy or oversquashing.</figcaption>
+      </figure>
+
+      <h2>Recommended practice</h2>
+      <ul>
+        <li>For small calibration cases, validate JVP/VJP products against a dense reverse-mode Jacobian and SVD.</li>
+        <li>For the scalable finite-depth top rate, use multiple-start power iteration on the <em>full unprojected</em> Jacobian product; report residuals and do not accept nonconverged runs.</li>
+        <li>Use random probes as labeled lower bounds or spectral-shape diagnostics, after calibration; do not silently treat a fixed probe count as the exponent.</li>
+        <li>Do not insert a mean-zero projection between GNN layers: that changes the operator being measured.</li>
+      </ul>
+    </main>
+  </body>
+</html>
