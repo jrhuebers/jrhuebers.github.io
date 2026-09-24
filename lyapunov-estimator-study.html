@@ -18,7 +18,7 @@
       </p>
 
       <p>
-        <a href="/lyapunov-estimator-study.pdf"><strong>Download the illustrated PDF report (1.4 MB)</strong></a>
+        <a href="/lyapunov-estimator-study.pdf"><strong>Download the illustrated PDF report (2.1 MB)</strong></a>
         · <a href="https://github.com/jrhuebers/lyapunov-diagnostics">code, configurations, and evidence</a>
       </p>
 
@@ -66,7 +66,8 @@
         coordinates. Hyperparameters are selected only from validation accuracy. Testing uses 12 fresh graphs from each of
         three conditions: matched homophilic SBMs, heterophilic SBMs with reversed edge probabilities, and 15-node barbells
         with a three-node bottleneck. Jacobian calibration uses the first three examples per condition for each of two model
-        seeds.
+        seeds. The complete split contains 58 unique graphs: 16 training, six validation, and 36 testing; Jacobian
+        calibration reuses the first three test examples per condition, for nine unique graph/signal inputs.
       </p>
       <p>
         The rate is computed pointwise: within a cell, the graph, feature signal, trained model, and forward trajectory are
@@ -74,6 +75,29 @@
         distribution over jointly generated graph/signal pairs. It therefore does not yet isolate variation in the input
         signal while holding a single graph fixed.
       </p>
+
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/test_graph_signal_overview.png"
+             alt="All 36 held-out test graphs with node signal values and calibration subset highlighted"
+             style="max-width: 100%; height: auto;">
+        <figcaption>All 36 test graphs. Node colour shows the first signal coordinate; gold frames mark the nine calibration inputs.</figcaption>
+      </figure>
+
+      <h2>Estimator wall-clock comparison</h2>
+      <p>
+        On the tiny calibrated dimensions, dense Jacobian plus SVD was exact and fastest. Median one-thread CPU times per
+        cell ranged from 0.003–0.071 seconds for dense SVD, 0.007–0.293 seconds for 1,024 vectorized probes, and
+        1.69–38.46 seconds for three-start/160-iteration power. The fast random-probe method remained inaccurate. Dense
+        storage scales quadratically, so the scalable recommendation remains residual-checked matrix-free power once an
+        explicit Jacobian no longer fits.
+      </p>
+
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/estimator_wall_clock.png"
+             alt="Wall-clock comparison of dense SVD, random probes, and power iteration"
+             style="max-width: 100%; height: auto;">
+        <figcaption>One-thread CPU timing on six matched cells per architecture; medians with interquartile error bars.</figcaption>
+      </figure>
 
       <h2>Pierre's projected estimator</h2>
       <p>
