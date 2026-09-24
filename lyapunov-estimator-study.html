@@ -121,6 +121,19 @@
         <figcaption>Exact finite-depth rate distributions over random graph/signal pairs, by family and combined.</figcaption>
       </figure>
 
+      <p>
+        The exact estimator also returns the full singular-value spectrum, so each draw yields the 2nd and 3rd
+        eigenmode rates as well. The GNN spectra decay with order (GCN 0.804→0.480→0.242; ChebNet 1.024→0.841→0.720;
+        sheaf 0.514→0.414→0.362), showing growth is concentrated in a small set of hidden directions.
+      </p>
+
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/eigenmode_histograms.png"
+             alt="Second and third eigenmode histograms per system"
+             style="max-width: 100%; height: auto;">
+        <figcaption>Finite-depth eigenmode rates (modes 1/2/3) per system; same colour, solid/dashed/dotted lines.</figcaption>
+      </figure>
+
       <h2>Pierre's projected estimator</h2>
       <p>
         A separate experiment evaluates Pierre's deliberately different observable, which subtracts the node mean after
