@@ -122,18 +122,19 @@
       </figure>
 
       <p>
-        The exact estimator also returns the full singular-value spectrum, so each draw yields the 2nd and 3rd
-        eigenmode rates as well. The GNN spectra decay with order (GCN 0.804→0.480→0.242; ChebNet 1.024→0.841→0.720;
-        sheaf 0.514→0.414→0.362), showing growth is concentrated in a small set of hidden directions. Heat diffusion,
-        evaluated on a single scalar field, shows the opposite: mode 1 stays 0 (constant mode preserved) while modes 2
-        and 3 become negative (≈ −0.07 and −0.16), i.e. genuine contraction of the non-constant heat modes.
+        The exact estimator also returns the full singular-value spectrum, each draw giving eigenmode rates for modes
+        1 through 25. The GNNs are shown at widely spaced modes 1/13/25. ChebNet and the sheaf decay slowly and stay
+        positive (ChebNet 1.024→0.389→0.248; sheaf 0.514→0.125→0.040), while GCN plunges negative by mode 13
+        (0.804→−0.73→−1.47), so growth is concentrated in just a few leading directions. Heat, evaluated on a single
+        scalar field, keeps modes 1/2/3: mode 1 stays 0 (constant mode preserved) while modes 2/3 go negative
+        (≈ −0.07 and −0.16), i.e. genuine contraction.
       </p>
 
       <figure>
         <img src="/assets/lyapunov-estimator-study/eigenmode_histograms.png"
-             alt="Second and third eigenmode histograms per system"
+             alt="Eigenmode rate histograms per system at modes 1, 13, 25"
              style="max-width: 100%; height: auto;">
-        <figcaption>Finite-depth eigenmode rates (modes 1/2/3) per system; same colour, solid/dashed/dotted lines.</figcaption>
+        <figcaption>Finite-depth eigenmode rates (GNNs: modes 1/13/25 solid/dashed/dotted; heat: modes 1/2/3).</figcaption>
       </figure>
 
       <h2>Pierre's projected estimator</h2>
