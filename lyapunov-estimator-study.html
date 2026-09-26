@@ -152,7 +152,9 @@
       <p>
         Two matrix-free upgrades are 5–15\times faster than the original fixed 3×160 protocol while matching the exact
         rate: early-stopping power (per-start stop at residual ≤10<sup>−7</sup>) and matrix-free Lanczos. Median per-cell
-        wall-clock: sheaf 30.7 s → 2.06 s (early) and 5.9 s (Lanczos).
+        wall-clock: sheaf 30.7 s → 2.06 s (early) and 5.9 s (Lanczos). Relaxing the stop threshold to residual ≤10<sup>−2</sup>
+        adds almost nothing extra: on these cells power already reaches 10<sup>−7</sup> within the first check, so only
+        ChebNet halves further (0.36→0.17 s); the rate stays exact to ≤4×10<sup>−8</sup>.
       </p>
       <figure>
         <img src="/assets/lyapunov-estimator-study/power_speedup.png"
