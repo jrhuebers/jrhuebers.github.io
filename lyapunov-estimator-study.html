@@ -18,7 +18,7 @@
       </p>
 
       <p>
-        <a href="/lyapunov-estimator-study.pdf"><strong>Download the illustrated PDF report (2.3 MB)</strong></a>
+        <a href="/lyapunov-estimator-study.pdf"><strong>Download the illustrated PDF report (2.7 MB)</strong></a>
         · <a href="https://github.com/jrhuebers/lyapunov-diagnostics">code, configurations, and evidence</a>
       </p>
 
@@ -135,6 +135,30 @@
              alt="Eigenmode rate histograms per system at modes 1, 13, 25"
              style="max-width: 100%; height: auto;">
         <figcaption>Finite-depth eigenmode rates (GNNs: modes 1/13/25 solid/dashed/dotted; heat: modes 1/2/3).</figcaption>
+      </figure>
+
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/probe_convergence_2p20.png"
+             alt="Probe convergence through 2^20 probes"
+             style="max-width: 100%; height: auto;">
+        <figcaption>Random-probe gap to the exact rate through M = 2^20 (1,048,576 probes): convergence is quasi-logarithmic and never reaches the 0.01 target.</figcaption>
+      </figure>
+      <p>
+        Pushing probes from 2^10 to 2^20 closes only ~20% of the gap per 1024\times more probes (GCN 0.390→0.318,
+        ChebNet 0.380→0.308, sheaf 0.117→0.090).
+      </p>
+
+      <h2>Power-iteration speedup</h2>
+      <p>
+        Two matrix-free upgrades are 5–15\times faster than the original fixed 3×160 protocol while matching the exact
+        rate: early-stopping power (per-start stop at residual ≤10<sup>−7</sup>) and matrix-free Lanczos. Median per-cell
+        wall-clock: sheaf 30.7 s → 2.06 s (early) and 5.9 s (Lanczos).
+      </p>
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/power_speedup.png"
+             alt="Power-speedup benchmark comparing 3x160, early-stopping power, and Lanczos"
+             style="max-width: 100%; height: auto;">
+        <figcaption>Median wall-clock and exact-rate agreement for 3×160, early-stopping power, and Lanczos.</figcaption>
       </figure>
 
       <h2>Pierre's projected estimator</h2>
