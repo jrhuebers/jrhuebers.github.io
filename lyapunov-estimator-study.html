@@ -30,6 +30,13 @@
         tiny-case SVD references. The report explains why probe budgets depend on the singular spectrum and tangent dimension,
         rather than being a universal GNN hyperparameter.
       </p>
+      <p>
+        If the estimator is restricted to <strong>forward-only</strong> JVP probes (no adjoint), the best measured estimator is
+        the <strong>graph-aligned (smoothness-skewed) full-space multiprobe</strong> q ∝ (I + cL)^{-1}z: it beats iid probes on
+        every cell at ~2–5× (gap@2^20 GCN 0.166 vs 0.313, ChebNet 0.154 vs 0.292, sheaf 0.045 vs 0.086 at equal wall), at
+        microsecond marginal cost per batched probe — while forward-only refinement (v ← Bv/‖Bv‖) provably stalls at the
+        spectral radius and never reaches the top singular rate.
+      </p>
 
       <figure>
         <img src="/assets/lyapunov-estimator-study/probe_gap_summary.png"
