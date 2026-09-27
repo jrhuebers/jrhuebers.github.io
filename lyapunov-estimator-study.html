@@ -8,13 +8,13 @@
       {% include nav.html %}
       <hr>
       <h1>Finite-depth Lyapunov-growth estimation in GNNs</h1>
-      <p><strong>Research note · 24 September 2026</strong></p>
+      <p><strong>Research note · 29 September 2026</strong></p>
 
       <p>
         This study asks how to estimate the top finite-depth Jacobian growth rate of a trained graph neural network.
         It compares exact dense SVD on small cases, random full-space JVP probes, and residual-checked JVP/VJP power iteration.
-        The experiments use tuned GCN, ChebNet, and a deep feature-conditioned sheaf-diffusion baseline on homophilic,
-        heterophilic, and barbell graph conditions.
+        The experiments use tuned GCN, ChebNet, Hariri et al.'s Stable-ChebNet, and a deep feature-conditioned sheaf-diffusion
+        baseline on homophilic, heterophilic, and barbell graph conditions.
       </p>
 
       <p>
@@ -36,6 +36,13 @@
         every cell at ~2–5× (gap@2^20 GCN 0.166 vs 0.313, ChebNet 0.154 vs 0.292, sheaf 0.045 vs 0.086 at equal wall), at
         microsecond marginal cost per batched probe — while forward-only refinement (v ← Bv/‖Bv‖) provably stalls at the
         spectral radius and never reaches the top singular rate.
+      </p>
+      <p>
+        The new Stable-ChebNet model-zoo entry (Hariri et al., arXiv:2506.07624v2) was evaluated with the same exact-SVD,
+        full-spectrum, histogram, probe-convergence, timing, power-speedup, and forward-only follow-up protocols. Its exact
+        top-rate histogram mean is 0.281, versus 0.804 (GCN), 1.024 (ChebNet), and 0.514 (sheaf), while its full products
+        had no zero singular values in the 58 graph–signal examples. These are controlled synthetic-task results, not a full
+        reproduction of the paper's long-range benchmark.
       </p>
 
       <figure>
@@ -94,7 +101,8 @@
       <p>
         On the tiny calibrated dimensions, dense Jacobian plus SVD was exact and fastest. Median one-thread CPU times per
         cell ranged from 0.003–0.071 seconds for dense SVD, 0.007–0.293 seconds for 1,024 vectorized probes, and
-        1.69–38.46 seconds for three-start/160-iteration power. The fast random-probe method remained inaccurate. Dense
+        1.69–38.46 seconds for three-start/160-iteration power. The Stable-ChebNet timing medians were 0.0128 s dense SVD,
+        0.0401 s for 1,024 probes, and 9.07 s for fixed power. The fast random-probe method remained inaccurate. Dense
         storage scales quadratically, so the scalable recommendation remains residual-checked matrix-free power once an
         explicit Jacobian no longer fits.
       </p>
@@ -109,9 +117,10 @@
       <h2>Lyapunov-rate histograms</h2>
       <p>
         Loading a trained checkpoint of each architecture and drawing the same 300 graph/signal pairs per family, the exact
-        reverse-mode dense-SVD rate gives 900 pointwise values per model. The models are cleanly ordered: ChebNet dominates
-        every family (mean about 0.98–1.09), GCN is intermediate (about 0.79–0.83), and the deep sheaf is lowest (about
-        0.51–0.53). Distributions are narrow relative to their means, so the finite-depth rate meaningfully distinguishes
+        reverse-mode dense-SVD rate gives 900 pointwise values per model. The models are cleanly separated in this pilot:
+        ChebNet dominates every family (mean about 0.98–1.09), GCN is intermediate (about 0.79–0.83), Stable-ChebNet is
+        lower (about 0.22–0.37), and the deep sheaf is lowest (about 0.51–0.53). Distributions are narrow relative to their
+        means, so the finite-depth rate meaningfully distinguishes
         these trained architectures, and family has a smaller effect than model choice.
       </p>
       <p>
@@ -122,8 +131,8 @@
       </p>
 
       <figure>
-        <img src="/assets/lyapunov-estimator-study/model_histogram_overlay.png"
-             alt="Exact Lyapunov-rate histograms for GCN, ChebNet, and sheaf across graph families"
+        <img src="/assets/lyapunov-estimator-study/stable_chebnet_histogram_overlay.png"
+             alt="Exact Lyapunov-rate histograms for GCN, ChebNet, Stable-ChebNet, sheaf, and heat across graph families"
              style="max-width: 100%; height: auto;">
         <figcaption>Exact finite-depth rate distributions over random graph/signal pairs, by family and combined.</figcaption>
       </figure>
@@ -131,38 +140,39 @@
       <p>
         The exact estimator also returns the full singular-value spectrum, each draw giving eigenmode rates for modes
         1 through 25. The GNNs are shown at widely spaced modes 1/13/25. ChebNet and the sheaf decay slowly and stay
-        positive (ChebNet 1.024→0.389→0.248; sheaf 0.514→0.125→0.040), while GCN plunges negative by mode 13
+        positive (ChebNet 1.024→0.389→0.248; sheaf 0.514→0.125→0.040), Stable-ChebNet decays smoothly
+        (0.281→−0.028→−0.156), while GCN plunges negative by mode 13
         (0.804→−0.73→−1.47), so growth is concentrated in just a few leading directions. Heat, evaluated on a single
         scalar field, keeps modes 1/2/3: mode 1 stays 0 (constant mode preserved) while modes 2/3 go negative
         (≈ −0.07 and −0.16), i.e. genuine contraction.
       </p>
 
       <figure>
-        <img src="/assets/lyapunov-estimator-study/eigenmode_histograms.png"
-             alt="Eigenmode rate histograms per system at modes 1, 13, 25"
+        <img src="/assets/lyapunov-estimator-study/stable_chebnet_eigenmode_histograms.png"
+             alt="Eigenmode rate histograms per system including Stable-ChebNet at modes 1, 13, 25"
              style="max-width: 100%; height: auto;">
         <figcaption>Finite-depth eigenmode rates (GNNs: modes 1/13/25 solid/dashed/dotted; heat: modes 1/2/3).</figcaption>
       </figure>
 
       <h2>Expected empirical singular-value measures</h2>
       <p>
-        A new full-spectrum experiment forms the complete depth-K hidden-state Jacobian by explicit reverse-mode autodiff and averages each normalized empirical singular-value measure over graph–signal pairs. It covers all 16 training graphs, six validation graphs, and 36 held-out test graphs for each GNN checkpoint, plus single-channel heat diffusion on the same graph distributions. Training top-rate means are 0.777 (GCN), 0.987 (ChebNet), 0.505 (sheaf), and approximately 0 (heat), while the bulk is strongly contracting; this is a fixed-depth spectral observable, not the spectrum of an expected Jacobian or an asymptotic Lyapunov distribution.
+        A new full-spectrum experiment forms the complete depth-K hidden-state Jacobian by explicit reverse-mode autodiff and averages each normalized empirical singular-value measure over graph–signal pairs. It covers all 16 training graphs, six validation graphs, and 36 held-out test graphs for each GNN checkpoint, plus single-channel heat diffusion on the same graph distributions. Training top-rate means are 0.777 (GCN), 0.987 (ChebNet), 0.136 (Stable-ChebNet), 0.505 (sheaf), and approximately 0 (heat), while the bulk is strongly contracting; this is a fixed-depth spectral observable, not the spectrum of an expected Jacobian or an asymptotic Lyapunov distribution.
       </p>
       <figure>
-        <img src="/assets/lyapunov-estimator-study/expected_spectral_cdfs.png"
-             alt="Expected CDFs of per-depth log singular values for GCN, ChebNet, sheaf, and heat diffusion"
+        <img src="/assets/lyapunov-estimator-study/stable_chebnet_expected_spectral_cdfs.png"
+             alt="Expected CDFs of per-depth log singular values for GCN, ChebNet, Stable-ChebNet, sheaf, and heat diffusion"
              style="max-width: 100%; height: auto;">
         <figcaption>Expected CDFs of the complete depth-K Jacobian spectrum across training, validation, and test distributions.</figcaption>
       </figure>
       <figure>
-        <img src="/assets/lyapunov-estimator-study/expected_spectral_pdfs.png"
+        <img src="/assets/lyapunov-estimator-study/stable_chebnet_expected_spectral_pdfs.png"
              alt="Expected probability density components of per-depth log singular values"
              style="max-width: 100%; height: auto;">
         <figcaption>Continuous PDF components of the expected empirical spectral measures; zero singular-value atoms are annotated.</figcaption>
       </figure>
       <figure>
-        <img src="/assets/lyapunov-estimator-study/spectral_quantile_profiles.png"
-             alt="Mean spectral quantile profiles for the four systems"
+        <img src="/assets/lyapunov-estimator-study/stable_chebnet_spectral_quantile_profiles.png"
+             alt="Mean spectral quantile profiles for the five systems including Stable-ChebNet"
              style="max-width: 100%; height: auto;">
         <figcaption>Mean within-example spectral quantile profiles: the bulk spectrum, not only the top mode.</figcaption>
       </figure>
@@ -175,8 +185,20 @@
       </figure>
       <p>
         Pushing probes from 2^10 to 2^20 closes only ~20% of the gap per 1024\times more probes (GCN 0.390→0.318,
-        ChebNet 0.380→0.308, sheaf 0.117→0.090).
+        ChebNet 0.380→0.308, Stable-ChebNet 0.198→0.160, sheaf 0.117→0.090).
       </p>
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/stable_chebnet_probe_convergence_2p20.png"
+             alt="Stable-ChebNet probe convergence through 2^20 probes"
+             style="max-width: 100%; height: auto;">
+        <figcaption>Stable-ChebNet iid-probe convergence: the gap is smaller than for GCN/ChebNet here, but remains about 0.16 at one million probes.</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/stable_chebnet_power_speedup.png"
+             alt="Stable-ChebNet power and Lanczos speedup"
+             style="max-width: 100%; height: auto;">
+        <figcaption>Stable-ChebNet matrix-free speedups: early stopping is about 15× faster than fixed power and matches the exact reference.</figcaption>
+      </figure>
 
       <h2>Power-iteration speedup</h2>
       <p>
@@ -191,6 +213,26 @@
              alt="Power-speedup benchmark comparing 3x160, early-stopping power, and Lanczos"
              style="max-width: 100%; height: auto;">
         <figcaption>Median wall-clock and exact-rate agreement for 3×160, early-stopping power, and Lanczos.</figcaption>
+      </figure>
+
+      <h2>Stable-ChebNet forward-only and adaptive follow-ups</h2>
+      <p>
+        On the same three seed-90000 operators, Stable-ChebNet's graph-smoothed forward-only probes reduced the 2<sup>20</sup>
+        gap from 0.157 (iid) to 0.109, at about 37.5–40.0 seconds. Adjoint-enabled refinement reduced the gap to 0.0021–0.0048
+        in two steps and below 10<sup>−4</sup> in three to five steps. The frequency-adaptive forward-only tilt was worse than
+        fixed smoothing at small budgets, with pooled gaps 0.20 versus 0.14 at M=10.
+      </p>
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/stable_chebnet_forward_only_pareto.png"
+             alt="Stable-ChebNet forward-only wall-clock Pareto"
+             style="max-width: 100%; height: auto;">
+        <figcaption>Stable-ChebNet forward-only iid versus graph-smoothed probe wall-clock Pareto.</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/stable_chebnet_probe_vs_adaptive.png"
+             alt="Stable-ChebNet random probes versus adjoint-adaptive refinement"
+             style="max-width: 100%; height: auto;">
+        <figcaption>Stable-ChebNet adjoint refinement converges in a few operator products where random probes remain far below the top singular rate.</figcaption>
       </figure>
 
       <h2>Pierre's projected estimator</h2>
