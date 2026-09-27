@@ -144,6 +144,23 @@
         <figcaption>Finite-depth eigenmode rates (GNNs: modes 1/13/25 solid/dashed/dotted; heat: modes 1/2/3).</figcaption>
       </figure>
 
+      <h2>Expected empirical singular-value measures</h2>
+      <p>
+        A new full-spectrum experiment forms the complete depth-K hidden-state Jacobian by explicit reverse-mode autodiff and averages each normalized empirical singular-value measure over graph–signal pairs. It covers all 16 training graphs, six validation graphs, and 36 held-out test graphs for each GNN checkpoint, plus single-channel heat diffusion on the same graph distributions. Training top-rate means are 0.777 (GCN), 0.987 (ChebNet), 0.505 (sheaf), and approximately 0 (heat), while the bulk is strongly contracting; this is a fixed-depth spectral observable, not the spectrum of an expected Jacobian or an asymptotic Lyapunov distribution.
+      </p>
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/expected_spectral_cdfs.png"
+             alt="Expected CDFs of per-depth log singular values for GCN, ChebNet, sheaf, and heat diffusion"
+             style="max-width: 100%; height: auto;">
+        <figcaption>Expected CDFs of the complete depth-K Jacobian spectrum across training, validation, and test distributions.</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/spectral_quantile_profiles.png"
+             alt="Mean spectral quantile profiles for the four systems"
+             style="max-width: 100%; height: auto;">
+        <figcaption>Mean within-example spectral quantile profiles: the bulk spectrum, not only the top mode.</figcaption>
+      </figure>
+
       <figure>
         <img src="/assets/lyapunov-estimator-study/probe_convergence_2p20.png"
              alt="Probe convergence through 2^20 probes"
