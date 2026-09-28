@@ -312,7 +312,7 @@
       </figure>
 
       <h2>Recent spectral extensions</h2>
-      <p>We now also condition the grouped spectral measure on one fixed graph while resampling signals, repeat the complete-product analysis on the MUTAG real-world molecular graph benchmark, and extend the expected-measure diagnostic to a no-pooling MNIST CNN and a four-hidden-layer 300-unit UCI HIGGS MLP. The complete 35-page report contains the full figure set, loss curves, coverage/atom annotations, split details, and reproducibility manifests.</p>
+      <p>We now also condition the grouped spectral measure on one fixed graph while resampling signals, repeat the complete-product analysis on the MUTAG real-world molecular graph benchmark, and extend the expected-measure diagnostic to a no-pooling MNIST CNN and a four-hidden-layer 300-unit UCI HIGGS MLP. The complete 38-page report contains the full figure set, continuation results, classification accuracies, loss curves, coverage/atom annotations, split details, and reproducibility manifests.</p>
       <figure>
         <img src="/assets/lyapunov-estimator-study/fixed_graph_grouped_channel_expected_pdfs_lambda_m100_2.png"
              alt="Fixed graph conditional grouped expected spectral densities"
@@ -338,16 +338,46 @@
         <figcaption>MUTAG graph-classification loss curves for the four selected models.</figcaption>
       </figure>
       <figure>
+        <img src="/assets/lyapunov-estimator-study/mutag_continued_expected_pdfs_fixed.png"
+             alt="MUTAG continued-checkpoint expected spectral PDFs"
+             style="max-width: 100%; height: auto;">
+        <figcaption>Expected MUTAG spectra after 400-epoch continuation and best-validation checkpoint selection.</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/mutag_continued_fixed_graph_grouped_pdfs.png"
+             alt="MUTAG continued fixed-graph grouped spectral densities"
+             style="max-width: 100%; height: auto;">
+        <figcaption>Continued MUTAG fixed-graph grouped spectra with six high-contrast cycling colors.</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/mutag_continued_loss_curves.png"
+             alt="MUTAG continuation loss curves"
+             style="max-width: 78%; height: auto;">
+        <figcaption>Continuation loss curves; the reported checkpoint is selected by validation accuracy.</figcaption>
+      </figure>
+      <figure>
         <img src="/assets/lyapunov-estimator-study/mnist_expected_pdfs_dual_x.png"
              alt="MNIST CNN random and final expected spectra with linear and symmetric-log x axes"
              style="max-width: 100%; height: auto;">
         <figcaption>MNIST CNN expected spectra for random and final checkpoints on linear and symmetric-log x axes.</figcaption>
       </figure>
       <figure>
+        <img src="/assets/lyapunov-estimator-study/mnist_continued_expected_pdfs_dual_x.png"
+             alt="MNIST CNN continued expected spectra"
+             style="max-width: 100%; height: auto;">
+        <figcaption>MNIST spectra after 20-epoch continuation: validation accuracy improves from 0.9205 to 0.9410.</figcaption>
+      </figure>
+      <figure>
         <img src="/assets/lyapunov-estimator-study/higgs_expected_pdfs_dual_x.png"
              alt="UCI HIGGS MLP random and final expected spectra with linear and symmetric-log x axes"
              style="max-width: 100%; height: auto;">
         <figcaption>UCI HIGGS MLP expected spectra for random and final checkpoints on linear and symmetric-log x axes.</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/higgs_continued_expected_pdfs_dual_x.png"
+             alt="UCI HIGGS MLP continued expected spectra"
+             style="max-width: 100%; height: auto;">
+        <figcaption>HIGGS spectra after 40-epoch continuation: validation accuracy improves from 0.7159 to 0.7185.</figcaption>
       </figure>
 
       <h2>Recommended practice</h2>
