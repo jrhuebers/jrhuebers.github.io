@@ -311,6 +311,45 @@
         <figcaption>Mean-zero projection does not resolve the slow convergence of independent random probes.</figcaption>
       </figure>
 
+      <h2>Recent spectral extensions</h2>
+      <p>We now also condition the grouped spectral measure on one fixed graph while resampling signals, repeat the complete-product analysis on the MUTAG real-world molecular graph benchmark, and extend the expected-measure diagnostic to a no-pooling MNIST CNN and a four-hidden-layer 300-unit UCI HIGGS MLP. The complete 35-page report contains the full figure set, loss curves, coverage/atom annotations, split details, and reproducibility manifests.</p>
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/fixed_graph_grouped_channel_expected_pdfs_lambda_m100_2.png"
+             alt="Fixed graph conditional grouped expected spectral densities"
+             style="max-width: 100%; height: auto;">
+        <figcaption>Fixed-graph conditional grouped expected measures with 1/(N C) normalization.</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/fixed_graph.png"
+             alt="Fixed contextual SBM graph used for the conditional spectral experiment"
+             style="max-width: 52%; height: auto;">
+        <figcaption>Topology and class assignment of the fixed graph used for the conditional experiment.</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/mutag_expected_pdfs.png"
+             alt="MUTAG split-wise expected spectral PDFs for four trained GNNs"
+             style="max-width: 100%; height: auto;">
+        <figcaption>Split-wise expected empirical spectra on the MUTAG real-world graph distribution.</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/mutag_loss_curves.png"
+             alt="MUTAG GNN training loss curves"
+             style="max-width: 78%; height: auto;">
+        <figcaption>MUTAG graph-classification loss curves for the four selected models.</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/mnist_expected_pdfs_dual_x.png"
+             alt="MNIST CNN random and final expected spectra with linear and symmetric-log x axes"
+             style="max-width: 100%; height: auto;">
+        <figcaption>MNIST CNN expected spectra for random and final checkpoints on linear and symmetric-log x axes.</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/higgs_expected_pdfs_dual_x.png"
+             alt="UCI HIGGS MLP random and final expected spectra with linear and symmetric-log x axes"
+             style="max-width: 100%; height: auto;">
+        <figcaption>UCI HIGGS MLP expected spectra for random and final checkpoints on linear and symmetric-log x axes.</figcaption>
+      </figure>
+
       <h2>Recommended practice</h2>
       <ul>
         <li>For small calibration cases, validate JVP/VJP products against a dense reverse-mode Jacobian and SVD.</li>
