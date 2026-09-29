@@ -195,6 +195,24 @@
         <figcaption>Training-distribution spectral PDFs using 1024 graph–signal pairs per system in the rate window −100 to 2.</figcaption>
       </figure>
       <figure>
+        <img src="/assets/lyapunov-estimator-study/training_unnormalized_log_singular_pdfs_logy.png"
+             alt="Unnormalized log singular-value densities on a logarithmic y-axis"
+             style="max-width: 100%; height: auto;">
+        <figcaption>Unnormalized log-singular-value densities for GCN, ChebNet and sheaf on [−200,0].</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/training_singular_value_pdfs.png"
+             alt="Raw singular-value densities without logarithms"
+             style="max-width: 100%; height: auto;">
+        <figcaption>Raw singular-value densities, computed without taking logarithms.</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/synthetic_gnn_loss_curves.png"
+             alt="Synthetic GNN training loss replay"
+             style="max-width: 86%; height: auto;">
+        <figcaption>Training-loss replay for the four synthetic GNN checkpoints.</figcaption>
+      </figure>
+      <figure>
         <img src="/assets/lyapunov-estimator-study/grouped_channel_expected_pdfs_lambda_m100_2.png"
              alt="Full and channel-grouped expected spectral densities for GCN, ChebNet, Stable-ChebNet, and sheaf"
              style="max-width: 100%; height: auto;">
@@ -312,7 +330,7 @@
       </figure>
 
       <h2>Recent spectral extensions</h2>
-      <p>We now also condition the grouped spectral measure on one fixed graph while resampling signals, repeat the complete-product analysis on the MUTAG real-world molecular graph benchmark, and extend the expected-measure diagnostic to a no-pooling MNIST CNN and a four-hidden-layer 300-unit UCI HIGGS MLP. The complete 38-page report contains the full figure set, continuation results, classification accuracies, loss curves, coverage/atom annotations, split details, and reproducibility manifests.</p>
+      <p>We now also condition the grouped spectral measure on one fixed graph while resampling signals, repeat the complete-product analysis on the MUTAG real-world molecular graph benchmark, and extend the expected-measure diagnostic to a no-pooling MNIST CNN and a four-hidden-layer 300-unit UCI HIGGS MLP. The complete 40-page report contains the full figure set, rank-concentration diagnostics, raw-singular-value checks, continuation results, classification accuracies, loss curves, coverage/atom annotations, split details, and reproducibility manifests.</p>
       <figure>
         <img src="/assets/lyapunov-estimator-study/fixed_graph_grouped_channel_expected_pdfs_lambda_m100_2.png"
              alt="Fixed graph conditional grouped expected spectral densities"
@@ -324,6 +342,18 @@
              alt="Fixed contextual SBM graph used for the conditional spectral experiment"
              style="max-width: 52%; height: auto;">
         <figcaption>Topology and class assignment of the fixed graph used for the conditional experiment.</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/fixed_graph_log_rate_variance_histograms.png"
+             alt="Fixed-graph rank-wise variance histograms for log singular values"
+             style="max-width: 100%; height: auto;">
+        <figcaption>Rank-wise variance histograms across 1,024 fixed-graph signal resamples.</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/fixed_graph_log_rate_violin.png"
+             alt="Fixed-graph rank-indexed violin distributions"
+             style="max-width: 100%; height: auto;">
+        <figcaption>Single violin plot showing all 144 singular-value ranks for all four GNN architectures.</figcaption>
       </figure>
       <figure>
         <img src="/assets/lyapunov-estimator-study/mutag_expected_pdfs.png"
