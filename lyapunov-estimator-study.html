@@ -207,6 +207,12 @@
         <figcaption>Raw singular-value densities, computed without taking logarithms.</figcaption>
       </figure>
       <figure>
+        <img src="/assets/lyapunov-estimator-study/high_precision_training_expected_pdfs.png"
+             alt="100-digit mpmath SVD precision-control expected spectra"
+             style="max-width: 100%; height: auto;">
+        <figcaption>Figure-17-style spectra from 16 samples using 100-digit mpmath SVDs of float64 Jacobians.</figcaption>
+      </figure>
+      <figure>
         <img src="/assets/lyapunov-estimator-study/synthetic_gnn_loss_curves.png"
              alt="Synthetic GNN training loss replay"
              style="max-width: 86%; height: auto;">
@@ -330,7 +336,7 @@
       </figure>
 
       <h2>Recent spectral extensions</h2>
-      <p>We now also condition the grouped spectral measure on one fixed graph while resampling signals, repeat the complete-product analysis on the MUTAG real-world molecular graph benchmark, and extend the expected-measure diagnostic to a no-pooling MNIST CNN and a four-hidden-layer 300-unit UCI HIGGS MLP. The complete 40-page report contains the full figure set, rank-concentration diagnostics, raw-singular-value checks, continuation results, classification accuracies, loss curves, coverage/atom annotations, split details, and reproducibility manifests.</p>
+      <p>We now also condition the grouped spectral measure on one fixed graph while resampling signals, repeat the complete-product analysis on the MUTAG real-world molecular graph benchmark, and extend the expected-measure diagnostic to a no-pooling MNIST CNN and a four-hidden-layer 300-unit UCI HIGGS MLP. The complete 42-page report contains the full figure set, rank-concentration diagnostics, raw-singular-value checks, a 100-digit SVD precision control, continuation results, classification accuracies, loss curves, coverage/atom annotations, split details, and reproducibility manifests.</p>
       <figure>
         <img src="/assets/lyapunov-estimator-study/fixed_graph_grouped_channel_expected_pdfs_lambda_m100_2.png"
              alt="Fixed graph conditional grouped expected spectral densities"
