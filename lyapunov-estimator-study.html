@@ -219,6 +219,19 @@
         <figcaption>Training-loss replay for the four synthetic GNN checkpoints.</figcaption>
       </figure>
       <p>Direct checkpoint comparison confirms the replay: final training losses agree to approximately 10<sup>−18</sup>, and validation accuracies match exactly.</p>
+      <p>A numerical stability audit compares the float64 SVD spectra against a 100-digit mpmath recomputation: rank ordering is stable, but the deep contracting tail and near-zero classifications are precision-dependent, especially for GCN.</p>
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/float64_vs_100digit_expected_pdfs.png"
+             alt="Float64 versus 100-digit SVD expected spectra"
+             style="max-width: 100%; height: auto;">
+        <figcaption>Float64 and 100-digit SVD expected log-rate densities on the same 16 samples.</figcaption>
+      </figure>
+      <figure>
+        <img src="/assets/lyapunov-estimator-study/rankwise_numerical_sensitivity.png"
+             alt="Rank-wise numerical sensitivity"
+             style="max-width: 100%; height: auto;">
+        <figcaption>Rank-wise rate, zero-frequency and log singular-value discrepancies from the numerical audit.</figcaption>
+      </figure>
       <figure>
         <img src="/assets/lyapunov-estimator-study/grouped_channel_expected_pdfs_lambda_m100_2.png"
              alt="Full and channel-grouped expected spectral densities for GCN, ChebNet, Stable-ChebNet, and sheaf"
